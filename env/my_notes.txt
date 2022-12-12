@@ -1,0 +1,24 @@
+# Create ENV
+conda create --name "fast_api_env" python
+conda activate fast_api_env
+Env Export: conda env export > env.yaml
+Env Import: conda env create -f env/env.yaml
+
+# Install Libraries:
+pip install fastapi
+pip install "uvicorn[standard]"
+pip install python-multipart
+pip install opencv-python
+pip install numpy
+pip install mtcnn
+pip install tensorflow
+pip install pytz==2022.6
+
+# Run:
+uvicorn main:app --reload
+
+# Monitor:
+http://127.0.0.1:8000
+http://127.0.0.1:8000/items/5?q=somequery.
+http://127.0.0.1:8000/docs
+http://127.0.0.1:8000/redoc
