@@ -1,21 +1,22 @@
-# import base64
-import base64
-from typing import Union
-
-import uvicorn
-from fastapi import FastAPI
-from fastapi import File, UploadFile
-from src.models import read_image_file, resize_image_file, face_detection_opencv, load_model_mtcnn, face_detection_mtcnn, get_datetime
-from pydantic import BaseModel
-import numpy as np
-import cv2
 import os
+import base64
+import uvicorn
+from fastapi import FastAPI, File, UploadFile
+from pydantic import BaseModel
+import cv2
+from src.models import get_datetime, read_image_file, resize_image_file
+from src.models import face_detection_opencv, load_model_mtcnn, face_detection_mtcnn
 
-app_desc = """Description of App"""
-app = FastAPI(title='Face Detection API (with FastAPI)', description=app_desc)
+APP_DESC = """Description of App"""
+app = FastAPI(title='Face Detection API (with FastAPI)', description=APP_DESC)
 
 @app.get("/")
 def read_root():
+    """Face Detection API Get Method
+
+    Returns:
+        response(Dict): Some information about the API
+    """
     tarih_saat, _, _ = get_datetime()
     # return {"Hello": "World"}
     return {'DateTime': tarih_saat,
@@ -48,14 +49,15 @@ async def upload_file(file: UploadFile = File(...)):
     height, width, channels = img_object.shape
     _, encoded_img = cv2.imencode(file_desc[1], img_object)
     img_encoded = base64.b64encode(encoded_img)
-    
+
     # Resize Image
     img_object = resize_image_file(image=img_object, width=width, height=height)
-    
+
     detecter_type = 'mtcnn'
     if detecter_type == 'mtcnn':
         img_object = cv2.cvtColor(img_object, cv2.COLOR_BGR2RGB)
-        face_count, face_condifence, face_boxes = face_detection_mtcnn(detector=detector, img=img_object)
+        face_count, face_condifence, face_boxes = face_detection_mtcnn(detector=detector,
+         img=img_object)
         return{
             'File': file.filename,
             'FileName': file_desc[0],
@@ -79,6 +81,8 @@ async def upload_file(file: UploadFile = File(...)):
             'FaceBoxes': face_boxes
             # 'Base64Encoded': img_encoded,
         }
+    else:
+        pass
 
 if __name__ == "__main__":
     detector = load_model_mtcnn()

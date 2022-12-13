@@ -29,8 +29,6 @@ conda activate ENV_NAME
 ## Run
 ### 1- Run on Local System
 ```
-python main.py
-or
 uvicorn main:app --reload
 ```
 
@@ -75,12 +73,17 @@ docker rmi face_detection_api
 ```
 #### Check Web Browser:
 - `http://127.0.0.1:8000` or `http://localhost:8000`
-- http://127.0.0.1:8000/docs
-- http://127.0.0.1:8000/redoc
-- 
+- `http://127.0.0.1:8000/docs`
+- `http://127.0.0.1:8000/redoc`
+
+#### `FaceDetection` Service Test:
+Let's go to `http://127.0.0.1:8000/docs` on the browser and load the test image from the **img/** directory and test it.
+Please browse to files from the env TestScreen1.jpg and TestScreen2.jpg.
+
 ## ToDo
 - [ ] Adult Detection
 - [ ] Logging
+- [ ] facenet-pytorch Implementation
 
 ## Additional information
 Joint Face Detection and Alignment using Multi-task Cascaded Convolutional Networks (MTCCN) | https://arxiv.org/abs/1604.02878
