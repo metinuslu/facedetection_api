@@ -20,16 +20,21 @@
 - ReadMe.pdf
 
 ## Install
-``` pip install requirements.txt ```
-### 1- Create New Env.
+### 1- Install in an Actual Env.
+```
+pip install env/requirements.txt
+```
+
+### 2- Install with a New Env. (Optional)
 ```
 conda env create -f env/env.yaml
 conda activate ENV_NAME
 ```
+
 ## Run
 ### 1- Run on Local System
 ```
-uvicorn main:app --reload
+python main.py
 ```
 
 ### 2- Run on with Docker System
@@ -76,17 +81,18 @@ docker rmi face_detection_api
 - `http://127.0.0.1:8000/docs`
 - `http://127.0.0.1:8000/redoc`
 
-#### `FaceDetection` Service Test:
-Let's go to `http://127.0.0.1:8000/docs` on the browser and load the test image from the **img/** directory and test it.
-Please browse to files from the env TestScreen1.jpg and TestScreen2.jpg.
+#### FaceDetection Service Test:
+Step 1: Let's go to `http://127.0.0.1:8000/docs` on the browser and load the test image from the **img/** directory and test it.  
+Step 2: Please browse to files from the env TestScreen1.jpg and TestScreen2.jpg.  
+Step 3: Please browse to the response results.  
+
+## Additional information
+Joint Face Detection and Alignment using Multi-task Cascaded Convolutional Networks (MTCCN) | https://arxiv.org/abs/1604.02878
 
 ## ToDo
 - [ ] Adult Detection
 - [ ] Logging
 - [ ] facenet-pytorch Implementation
-
-## Additional information
-Joint Face Detection and Alignment using Multi-task Cascaded Convolutional Networks (MTCCN) | https://arxiv.org/abs/1604.02878
 
 ## Contact
 - Metin Uslu
