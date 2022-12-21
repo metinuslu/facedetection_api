@@ -22,7 +22,7 @@
 ## Install
 ### 1- Install in an Actual Env.
 ```
-pip install env/requirements.txt
+pip install -r env/requirements.txt
 ```
 
 ### 2- Install with a New Env. (Optional)
@@ -35,6 +35,10 @@ conda activate ENV_NAME
 ### 1- Run on Local System
 ```
 python main.py
+OR
+uvicorn main:app --reload
+OR
+uvicorn main:app --reload --host '0.0.0.0' --port 8000
 ```
 
 ### 2- Run on with Docker System
@@ -81,10 +85,10 @@ docker rmi face_detection_api
 - `http://127.0.0.1:8000/docs`
 - `http://127.0.0.1:8000/redoc`
 
-#### FaceDetection Service Test:
-Step 1: Let's go to `http://127.0.0.1:8000/docs` on the browser and load the test image from the **img/** directory and test it.  
-Step 2: Please browse to files from the env TestScreen1.jpg and TestScreen2.jpg.  
-Step 3: Please browse to the response results.  
+#### FaceDetectionApi Service Test:
+**Step 1:** Let's go to `http://127.0.0.1:8000/docs` on the browser and load the test image from the `img/` directory and test it. You can browse files from the env `TestScreen1.jpg` and `TestScreen2.jpg`.  
+
+**Step 2:** Please browse the response results.  
 
 ## Additional information
 Joint Face Detection and Alignment using Multi-task Cascaded Convolutional Networks (MTCCN) | https://arxiv.org/abs/1604.02878

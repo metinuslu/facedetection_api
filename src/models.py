@@ -18,16 +18,22 @@ def get_datetime():
     return tarih_saat.strftime("%Y-%m-%d %H:%M:%S"), \
          tarih_saat.strftime("%Y-%m-%d"), tarih_saat.strftime(" %H:%M:%S")
 
-def read_image_file(file):
+def read_image_file(file, detector_type='mtcnn'):
     """
     Returns the file received from the API as an image object.
         Parameters:
             file (int):
+            type (str):
         Returns:
             img_object (str):
     """
-    img_np_arr = np.fromstring(file, np.uint8)
-    img_object = cv2.imdecode(img_np_arr, cv2.IMREAD_COLOR)
+    if detector_type == 'mtcnn':        
+        img_np_arr = np.fromstring(file, np.uint8)
+        img_object = cv2.imdecode(img_np_arr, cv2.IMREAD_COLOR)
+    elif detector_type == 'opencv':
+        img_object = cv2.imread(file)
+    else:
+        img_object = None
     return img_object
 
 def resize_image_file(image, width, height):
@@ -54,11 +60,15 @@ def face_detection_opencv(image):
             face_count (int):
             face_boxes (list):
     """
-    face_cascade = cv2.CascadeClassifier('model/opencv/haarcascades/haarcascade_frontalface_default.xml')
-    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    face_boxes = face_cascade.detectMultiScale(gray, 1.1, 4)
-    face_count = len(face_boxes)
-    return face_count, face_boxes
+    try:
+        face_cascade = cv2.CascadeClassifier('model/opencv/haarcascades/haarcascade_frontalface_default.xml')
+        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        face_boxes = face_cascade.detectMultiScale(gray, 1.1, 4)
+        face_confidence = None
+        face_count = len(face_boxes)
+    except Exception as exc_err:
+        print("OpenCv Model:", exc_err)
+    return face_count, face_confidence, face_boxes
 
 def load_model_mtcnn():
     """
