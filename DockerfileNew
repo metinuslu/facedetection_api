@@ -1,0 +1,15 @@
+FROM python:3.10-slim
+
+COPY . /face_detection_api
+
+WORKDIR /face_detection_api
+
+RUN apt-get update && apt-get install ffmpeg libsm6 libxext6 -y
+
+RUN pip install --upgrade pip
+
+RUN pip install -r env/requirements.txt
+# RUN pip install --no-cache-dir -r env/requirements.txt
+
+# Start the application
+CMD ["python", "main.py"]
