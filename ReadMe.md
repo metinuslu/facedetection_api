@@ -45,6 +45,7 @@ uvicorn main:app --reload --host '0.0.0.0' --port 8000
 - **Step 1:** Docker Image Build
 ```
 docker build -t face_detection_api .
+docker build -t face_detection_api . --file .\DockerfileNew
 ```
 
 - **Step 1 Control:**
